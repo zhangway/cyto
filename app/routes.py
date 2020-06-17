@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from app import app
 import csv
 
@@ -37,4 +39,12 @@ def cyto():
     app.logger.debug(f'nodes count: {len(cy_nodes)}')
     cy_edges = list(map(lambda edge: Edge(edge.fish + edge.lice, edge.fish, edge.lice, float(edge.bicor)), edges))
     app.logger.debug(f'edges count: {len(cy_edges)}')
-    return "file analysed"
+    nodes_json = []
+    edges_json = []
+    for node in cy_nodes:
+        app.logger.debug(f'{node.node_id}---{node.label}')
+        nodes_json.append({"id": node.node_id, "label": node.label})
+    for edge in cy_edges:
+        edges_json.append({"id": edge.id, "bicor": edge.bicor, "source": edge.source, "target": edge.target})
+
+    return jsonify(edges=edges_json, nodes=nodes_json)
