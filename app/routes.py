@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, render_template
 
 from app import app
 import csv
@@ -11,7 +11,7 @@ from app.Node import Node
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World! Wei"
+    return render_template("index.html")
 
 @app.route('/cyto')
 def cyto():
@@ -43,8 +43,8 @@ def cyto():
     edges_json = []
     for node in cy_nodes:
         app.logger.debug(f'{node.node_id}---{node.label}')
-        nodes_json.append({"id": node.node_id, "label": node.label})
+        nodes_json.append({"data": {"id": node.node_id, "label": node.label}})
     for edge in cy_edges:
-        edges_json.append({"id": edge.id, "bicor": edge.bicor, "source": edge.source, "target": edge.target})
+        edges_json.append({"data": {"id": edge.id, "bicor": edge.bicor, "source": edge.source, "target": edge.target}})
 
-    return jsonify(edges=edges_json, nodes=nodes_json)
+    return jsonify(nodes=nodes_json, edges=edges_json)

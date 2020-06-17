@@ -1,0 +1,19 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Cytoscape</title>
+      {% else %}
+      <title>Welcome</title>
+      {% endif %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <div>Cytoscape: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+        <script src="http://marvl.infotech.monash.edu/webcola/cola.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.15.1/cytoscape.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/cytoscape-cola@2.3.1/cytoscape-cola.min.js"></script>
+
+    </body>
+</html>

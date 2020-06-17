@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        #cy {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+	</style>
+    <div id="cy"></div>
+<script>
+
+			$(document).ready(function () {
+
+				$.getJSON("cyto", function (data) {
+					console.log(data);
+					var cy = cytoscape({
+						container: document.getElementById('cy'),
+						elements: data,
+						style: [
+							{
+								selector: 'node',
+								style: {
+									'label': 'data(id)',
+									'shape': 'hexagon',
+									'width': "mapData(bicor, -0.568204865023949, 0.568576243631336, 20, 50)",
+									'height': "mapData(bicor, -0.568204865023949, 0.568576243631336, 20, 50)",
+									'color': 'blue',
+									'background-color': 'red',
+									'background-fit': 'contain',
+									'background-clip': 'none'
+								}
+							}, {
+								selector: 'edge',
+								style: {
+									'text-background-color': 'yellow',
+									'text-background-opacity': 0.4,
+									'width': "mapData(bicor, -0.568204865023949, 0.568576243631336, 1, 8)",
+									'target-arrow-shape': 'triangle',
+									'control-point-step-size': '140px'
+								}
+							}
+						],
+						layout: {
+							name: 'circle'
+						}
+					});
+				});
+			});
+	</script>
+{% endblock %}
